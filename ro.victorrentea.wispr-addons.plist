@@ -7,7 +7,7 @@
     <key>ProgramArguments</key>
     <array>
         <string>/Library/Frameworks/Python.framework/Versions/3.12/bin/python3</string>
-        <string>/Users/victorrentea/workspace/wispr-flow-addons/clean.py</string>
+        <string>/Users/victorrentea/workspace/wispr-flow-addons/app.py</string>
     </array>
     <key>RunAtLoad</key>
     <true/>
