@@ -236,14 +236,9 @@ def handle_clean_hotkey(with_emoji: bool = False) -> None:
         start = time.time()
         emoji_tag = " +emoji" if with_emoji else ""
         log(f"Cleaning {len(text)} chars{emoji_tag}...")
-        if _app_ref:
-            _app_ref.title = "\U0001f9f9"  # broom — cleaning in progress
-
         cleaned, cost = clean_text(text, with_emoji=with_emoji)
         if cleaned is None:
             log("Failed: no response from API")
-            if _app_ref:
-                _app_ref.title = "\U0001f9d1\u200d\U0001f4bb"
             return
 
         simulate_keystroke(VK_Z, kCGEventFlagMaskCommand)
@@ -255,8 +250,6 @@ def handle_clean_hotkey(with_emoji: bool = False) -> None:
         elapsed_ms = int((time.time() - start) * 1000)
         heart = "❤️" if with_emoji else ""
         log(f"Done{heart} ({len(text)}\u2192{len(cleaned)} chars, {elapsed_ms}ms, ${cost:.4f}):\n  {cleaned[:200]}")
-        if _app_ref:
-            _app_ref.title = "\U0001f9d1\u200d\U0001f4bb"
     except Exception as e:
         log(f"Failed: {e}")
     finally:
@@ -318,8 +311,6 @@ def handle_dictation_toggle() -> None:
         _set_device_volume(device_id, DICTATION_VOLUME_LOW)
         _dictation_active = True
         log(f"\U0001f7e2 Dictation: \U0001f507 OS Output ({current_vol:.0%}\u2192{DICTATION_VOLUME_LOW:.0%})")
-        if _app_ref:
-            _app_ref.title = "\U0001f3a4"  # microphone — dictating
 
 
 def _restore_dictation_volume() -> None:
@@ -334,8 +325,6 @@ def _restore_dictation_volume() -> None:
     _set_device_volume(device_id, _mute_device_original_volume)
     _dictation_active = False
     log(f"\U0001f534 Dictation: \U0001f50a OS Output ({_mute_device_original_volume:.0%})")
-    if _app_ref:
-        _app_ref.title = "\U0001f9d1\u200d\U0001f4bb"
 
 
 # --- Event tap callback ---
